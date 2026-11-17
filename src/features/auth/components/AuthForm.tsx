@@ -16,6 +16,12 @@ import {
 
 const initial: AuthState = {};
 
+/**
+ * Google sign-in is hidden until the Google provider is set up in Supabase
+ * (see DEPLOY.md). Flip this to true to bring the button back.
+ */
+const GOOGLE_SIGN_IN_ENABLED: boolean = false;
+
 export function AuthForm({ mode }: { mode: "login" | "signup" }) {
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [emailState, emailAction, emailPending] = useActionState(
@@ -28,15 +34,19 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
 
   return (
     <div className="space-y-5">
-      <form action={signInWithGoogle}>
-        <Button type="submit" variant="outline" size="lg" className="w-full">
-          Continue with Google
-        </Button>
-      </form>
+      {GOOGLE_SIGN_IN_ENABLED ? (
+        <>
+          <form action={signInWithGoogle}>
+            <Button type="submit" variant="outline" size="lg" className="w-full">
+              Continue with Google
+            </Button>
+          </form>
 
-      <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-muted">
-        <span className="h-px flex-1 bg-border" /> or <span className="h-px flex-1 bg-border" />
-      </div>
+          <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-muted">
+            <span className="h-px flex-1 bg-border" /> or <span className="h-px flex-1 bg-border" />
+          </div>
+        </>
+      ) : null}
 
       <div role="tablist" aria-label="Sign-in method" className="grid grid-cols-2 rounded-full bg-surface p-1">
         {(["email", "phone"] as const).map((m) => (
