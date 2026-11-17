@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* Detty theme: dark first. Rainbow is reserved for Gbedu and Certified Plug. */
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-geist-sans), sans-serif;
+
+  --color-background: #08070b;
+  --color-surface: #131119;
+  --color-surface-2: #1c1924;
+  --color-border: #2a2634;
+  --color-foreground: #f5f3fa;
+  --color-muted: #a39db3;
+
+  --color-purple: #8b3dff;
+  --color-pink: #ff2e93;
+  --color-lime: #c6ff3d;
+  --color-orange: #ff7a1a;
+  --color-amber: #ffb020;
+  --color-danger: #ff4d5e;
+
+  --radius-card: 1.25rem;
+
+  --animate-rainbow: rainbow-shift 6s linear infinite;
+  --animate-shimmer: shimmer 2.4s ease-in-out infinite;
+
+  @keyframes rainbow-shift {
+    to {
+      background-position: 300% 50%;
+    }
+  }
+  @keyframes shimmer {
+    0%,
+    100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.25);
+    }
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-lime);
+  outline-offset: 2px;
+}
+
+/* Iridescent gradient used ONLY for Gbedu and Certified Plug. */
+.rainbow-bg {
+  background-image: linear-gradient(
+    90deg,
+    #ff2e93,
+    #ff7a1a,
+    #ffe14d,
+    #c6ff3d,
+    #2ee6c8,
+    #4d8dff,
+    #8b3dff,
+    #ff2e93
+  );
+  background-size: 300% 100%;
+}
+.rainbow-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #17141f 25%, #221e2d 50%, #17141f 75%);
+  background-size: 200% 100%;
+  animation: skeleton-slide 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-slide {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
